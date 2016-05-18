@@ -1,30 +1,49 @@
+@import '../../bower_components/bourbon/app/assets/stylesheets/bourbon'; 
+@import '../../bower_components/neat/app/assets/stylesheets/neat'; 
+
 body{
-    background:#ccc;
-}
+    background:#eee;
+    .social-share {
+        @include span-columns(3);
+        a {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: table;
+            background: red;
+            text:{align:center;decoration:none;}
+            i {
+                display: table-cell;
+                vertical-align: middle;
+                color:#fff;
+            } 
+        }    
+    }
+}  
 #book{
 	width:800px;
 	height:565px;
     margin:0 auto;
-    &.shadow{
-      -webkit-box-shadow: 0 4px 10px #666;
-      -moz-box-shadow: 0 4px 10px #666;
-      -ms-box-shadow: 0 4px 10px #666;
-      -o-box-shadow: 0 4px 10px #666;
-      box-shadow: 0 4px 10px #666;
+    &.shadow {
+        -webkit-box-shadow: 0 4px 10px #666;
+        -moz-box-shadow: 0 4px 10px #666;
+        -ms-box-shadow: 0 4px 10px #666;
+        -o-box-shadow: 0 4px 10px #666;
+        box-shadow: 0 4px 10px #666;
     }
-    .shadow{
-      -webkit-box-shadow: 0 4px 10px #666;
-      -moz-box-shadow: 0 4px 10px #666;
-      -ms-box-shadow: 0 4px 10px #666;
-      -o-box-shadow: 0 4px 10px #666;
-      box-shadow: 0 4px 10px #666;
+    .shadow {
+        -webkit-box-shadow: 0 4px 10px #666;
+        -moz-box-shadow: 0 4px 10px #666;
+        -ms-box-shadow: 0 4px 10px #666;
+        -o-box-shadow: 0 4px 10px #666;
+        box-shadow: 0 4px 10px #666;
     }
-    .turn-page{
+    .turn-page {
         background-color:white;
     }
-    .cover{
+    .cover {     
     }
-    .loader{
+    .loader {
         background-image:url(https://raw.githubusercontent.com/blasten/turn.js/master/demos/bible/loader.gif);
         width:24px;
         height:24px;
@@ -33,7 +52,7 @@ body{
         top:238px;
         left:188px;
     }
-    .data{
+    .data {
         text-align:center;
     }
     .odd{
@@ -49,9 +68,9 @@ body{
         background-image:-ms-linear-gradient(right, #FFF 95%, #ddd 100%);
     }
 }
-#controls{
+#controls {
 	width:800px;
 	text-align:center;
 	margin:0 auto;
 	font:14px arial;
-}
+} 
