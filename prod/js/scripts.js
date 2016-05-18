@@ -1,5 +1,6 @@
 jQuery(document).ready(function($){
-    var numberOfPages = 46; 
+    
+    var numberOfPages =  46; 
 	// Adds the pages that the book will need
 	function addPage(page, book) {
 		// 	First check if the page is already in the book
@@ -14,44 +15,45 @@ jQuery(document).ready(function($){
 			}, 1000);
 		}
 	}
-    
-    $('#book').turn('resize',{
-        pages: numberOfPages,
-        
-        when: {
-            turning: function(e, page, view) {
-                // Gets the range of pages that the book needs right now
-                var range = $(this).turn('range', page);
-                // Check if each page is within the book
-                for (page = range[0]; page<=range[1]; page++){
-                    addPage(page, $(this));
+	$(window).ready(function(){
+		$('#book').turn({
+            acceleration: true,
+            pages: numberOfPages,
+            elevation: 100,
+            gradients: !$.isTouch,
+            autoCenter: true,
+            turnCorners: 'tl,tr',
+            when: {
+                turning: function(e, page, view) {
+                    // Gets the range of pages that the book needs right now
+                    var range = $(this).turn('range', page);
+                    // Check if each page is within the book
+                    for (page = range[0]; page<=range[1]; page++) {
+                        addPage(page, $(this));
+                    }
+                },
+                turned: function(e, page) {
+                    $('#page-number').val(page);
                 }
-            },
-            turned: function(e, page) {
-                $('#page-number').val(page);
             }
-        }
-    });
-    
-    $('#number-pages').html(numberOfPages);
-    
-    $('#page-number').keydown(function(e){
-        if (e.keyCode===13){
-            $('#book').turn('page', $('#page-number').val());
-        }
-
-    });
-    
-    $(window).bind('keydown', function(e){
-		if (e.target && e.target.tagName.toLowerCase()!=='input'){
-			if (e.keyCode===37){
+        });
+		$('#number-pages').html(numberOfPages);
+		$('#page-number').keydown(function(e){
+			if (e.keyCode===13) {
+				$('#book').turn('page', $('#page-number').val());
+            }
+		});
+	});
+	$(window).bind('keydown', function(e){
+		if (e.target && e.target.tagName.toLowerCase()!=='input') {
+			if (e.keyCode===37) {
 				$('#book').turn('previous');
-    }else if (e.keyCode===39){
+            }
+			else if (e.keyCode===39) {
 				$('#book').turn('next');
             }
         }
 	});
-    
 }); 
 
 function fbShare(url, title, descr, image, winWidth, winHeight) {
