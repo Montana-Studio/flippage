@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>FlipBook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/flipbook.css">
     
     <meta name="description" content="Una revista internacional"/>
@@ -20,14 +21,16 @@
     <meta name="twitter:title" content="Revista COSAS - Una revista internacional" />
 </head>
 <body>
-   
-   <a href="javascript:fbShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'http://cosas.com/anna-queen-of-tribeca/', 520, 350)">facebook</a>
-            
-    <a href="javascript:twShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK - vía: @revistacosas', 520, 350)">twitter</a>
+    
+    <div class="social-share">
+        <a href="javascript:fbShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'http://cosas.com/anna-queen-of-tribeca/', 520, 350)"><i class="fa fa-facebook"></i></a>
+                
+        <a href="javascript:twShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK - vía: @revistacosas', 520, 350)"><i class="fa fa-twitter"></i></a>
 
-    <a href="javascript:piShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'http://cosas.com/wp-content/uploads/2016/05/1-Anna-Wintour-GettyImages-521028634.jpg', '', 520, 350)">pinteres</a>
+        <a href="javascript:piShare('http://cosas.com/anna-queen-of-tribeca/', 'ANNA QUEEN OF TRIBECA // FESTIVAL CINE EN NUEVA YORK', 'http://cosas.com/wp-content/uploads/2016/05/1-Anna-Wintour-GettyImages-521028634.jpg', '', 520, 350)"><i class="fa fa-pinterest"></i></a>
 
-    <a target="_blank" href="https://plus.google.com/share?url=http://cosas.com/anna-queen-of-tribeca/" onclick="window.open('https://plus.google.com/share?url=http://cosas.com/anna-queen-of-tribeca/','gplusshare','width=600,height=400,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150)+'');return false;">google plus</a>
+        <a target="_blank" href="https://plus.google.com/share?url=http://cosas.com/anna-queen-of-tribeca/" onclick="window.open('https://plus.google.com/share?url=http://cosas.com/anna-queen-of-tribeca/','gplusshare','width=600,height=400,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150)+'');return false;"><i class="fa fa-google"></i></a>    
+    </div>
 
     <div id="book">
         <div class="cover"><img src="img/part-1.jpg" alt=""/></div>
