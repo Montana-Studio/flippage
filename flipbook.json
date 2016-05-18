@@ -1,0 +1,26 @@
+{
+  "name": "flipbook",
+  "title": "Flipbook",
+  "description": "Best project ever.",
+  "version": "0.1.0",
+  "homepage": "http://www.flipbook.com/",
+  "author": {
+    "name": "Montana Studio",
+    "email": "mauro@montana-studio.com",
+    "url": "http://www.montana-studio.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Mediatrends/flipbook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mediatrends/flipbook/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.flipbook.com//blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": []
+}

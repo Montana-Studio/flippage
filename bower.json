@@ -1,0 +1,25 @@
+{
+  "name": "cosas",
+  "description": "medios digitales",
+  "main": "cosas",
+  "authors": [
+    "mauro@montana-studio.com"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "medios",
+    "digital",
+    "revista"
+  ],
+  "homepage": "https://github.com/Montana-Studio/cosas",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "neat": "^1.7.4"
+  }
+}
