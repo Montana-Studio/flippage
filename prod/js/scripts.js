@@ -1,61 +1,113 @@
-jQuery(document).ready(function($){
-    
-    var numberOfPages =  46; 
-	// Adds the pages that the book will need
-	function addPage(page, book) {
-		// 	First check if the page is already in the book
-		if (!book.turn('hasPage', page)) {
-			// Create an element for this page
-			var element = $('<div />', {'class': 'page '+((page%2===0) ? 'odd' : 'even'), 'id': 'page-'+page}).html('<i class="loader"></i>');
-			// If not then add the page
-			book.turn('addPage', element, page);
-			// Let's assum that the data is comming from the server and the request takes 1s.
-			setTimeout(function(){
-					element.html('<div class="data"><img src="img/part-'+page+'.jpg"/></div>');
-			}, 1000);
-		}
-	}
-	$(window).ready(function(){
-		$('#book').turn({
-            acceleration: true,
-            pages: numberOfPages,
-            elevation: 100,
-            gradients: !$.isTouch,
-            autoCenter: true,
-            turnCorners: 'tl,tr',
-            when: {
-                turning: function(e, page, view) {
-                    // Gets the range of pages that the book needs right now
-                    var range = $(this).turn('range', page);
-                    // Check if each page is within the book
-                    for (page = range[0]; page<=range[1]; page++) {
-                        addPage(page, $(this));
-                    }
-                },
-                turned: function(e, page) {
-                    $('#page-number').val(page);
-                }
-            }
-        });
-		$('#number-pages').html(numberOfPages);
-		$('#page-number').keydown(function(e){
-			if (e.keyCode===13) {
-				$('#book').turn('page', $('#page-number').val());
-            }
-		});
-	});
-	$(window).bind('keydown', function(e){
-		if (e.target && e.target.tagName.toLowerCase()!=='input') {
-			if (e.keyCode===37) {
-				$('#book').turn('previous');
-            }
-			else if (e.keyCode===39) {
-				$('#book').turn('next');
+$(document).ready(function(){            
+    function disableControls(page) {
+        if (page===1){
+            $('.previous-button').hide();
+        }else{
+            $('.previous-button').show();
+        }
+        if (page===$('#flipbook').turn('pages')){
+            $('.next-button').hide();
+        }else{
+            $('.next-button').show();
+        }
+    }
+    var numberOfPages = 46;
+    $('#flipbook').turn({
+        width: 800,
+        height: 566,
+        autoCenter: true,
+        pages:numberOfPages,
+        elevation:50,
+        acceleration:true,
+        gradients:true,
+        when: {
+            turning: function(event, page, view) {
+                var book = $(this),
+                currentPage = book.turn('page'),
+                pages = book.turn('pages');
+                Hash.go('page/' + page).update();
+                disableControls(page);
+                $('.thumbnails .page-'+currentPage).parent().removeClass('current');
+                $('.thumbnails .page-'+page).parent().addClass('current');
+            },
+            turned: function(e, page) {
+                $('#page-number').val(page);
             }
         }
-	});
-}); 
+    });
+    $('#number-pages').html(numberOfPages);
+    $('#page-number').keydown(function(e){
+        if (e.keyCode===13) {
+            $('#flipbook').turn('page', $('#page-number').val());
+        }
+    });
+    
+    $(document).keydown(function(e){
+        var previous = 37, next = 39;
+        switch (e.keyCode) {
+            case previous:
+                $('#flipbook').turn('previous');
+                e.preventDefault();
+            break;
+            case next:
+                $('#flipbook').turn('next');
+                e.preventDefault();
+            break;
+        }
+    });
 
+    $('.next-button').bind($.mouseEvents.over, function() {
+        $(this).addClass('next-button-hover');
+    }).bind($.mouseEvents.out, function() {
+        $(this).removeClass('next-button-hover');
+    }).bind($.mouseEvents.down, function() {
+        $(this).addClass('next-button-down');
+    }).bind($.mouseEvents.up, function() {	
+        $(this).removeClass('next-button-down');
+    }).click(function() {	
+        $('#flipbook').turn('next');
+    });
+
+    $('.previous-button').bind($.mouseEvents.over, function() {
+        $(this).addClass('previous-button-hover');
+    }).bind($.mouseEvents.out, function() {
+        $(this).removeClass('previous-button-hover');
+    }).bind($.mouseEvents.down, function() {
+        $(this).addClass('previous-button-down');
+    }).bind($.mouseEvents.up, function() {
+        $(this).removeClass('previous-button-down');
+    }).click(function() {
+        $('#flipbook').turn('previous');
+    });
+
+    $('.thumbnails').click(function(event) {
+        var page;
+        if (event.target && (page=/page-([0-9]+)/.exec($(event.target).attr('class'))) ) {
+            $('#flipbook').turn('page', page[1]);
+        }
+    });
+
+    $('.thumbnails li').bind($.mouseEvents.over, function() {
+            $(this).addClass('thumb-hover');
+        }).bind($.mouseEvents.out, function() {
+            $(this).removeClass('thumb-hover');
+        });
+
+    if ($.isTouch) {
+        $('.thumbnails').addClass('thumbanils-touch').bind($.mouseEvents.move, function(event) {
+            event.preventDefault();
+        });
+    } else {
+
+        $('.thumbnails ul').mouseover(function() {
+            $('.thumbnails').addClass('thumbnails-hover');
+        }).mousedown(function() {
+            return false;
+        }).mouseout(function() {
+            $('.thumbnails').removeClass('thumbnails-hover');
+        });
+    }
+});
 function fbShare(url, title, descr, image, winWidth, winHeight) {
     var winTop = (screen.height / 2) - (winHeight / 2);
     var winLeft = (screen.width / 2) - (winWidth / 2);
