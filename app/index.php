@@ -32,6 +32,7 @@
     <meta property="og:description" content="Una revista internacional" />
     <meta property="og:url" content="<?php echo $getUrl; ?>" />
     <meta property="og:site_name" content="<?php echo $getTitle; ?>" />
+    <meta property="og:image" content="<?php echo $getUrl.$getImg; ?>" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="Una revista internacional" />
@@ -39,11 +40,11 @@
 </head>
 <body>
     <div class="social-share">
-        <a href="javascript:fbShare('<?php echo $getUrl; ?>','<?php echo $getTitle; ?>','<?php echo $getTitle; ?>', '<?php echo $getUrl;echo $getImg; ?>', 520, 350)"><i class="fa fa-facebook"></i></a>
+        <a href="javascript:fbShare('<?php echo $getUrl; ?>','<?php echo $getTitle; ?>','<?php echo $getTitle; ?>', '', 520, 350)"><i class="fa fa-facebook"></i></a>
                 
         <a href="javascript:twShare('<?php echo $getUrl; ?>', '<?php echo $getTitle; ?> - vía: @revistacosas', 520, 350)"><i class="fa fa-twitter"></i></a>
 
-        <a href="javascript:piShare('<?php echo $getUrl; ?>', '<?php echo $getTitle; ?>', '<?php echo $getUrl;echo $getImg; ?>', '', 520, 350)"><i class="fa fa-pinterest"></i></a>
+        <a href="javascript:piShare('<?php echo $getUrl; ?>', '<?php echo $getTitle; ?>', '<?php echo $getUrl.$getImg; ?>', '', 520, 350)"><i class="fa fa-pinterest"></i></a>
 
         <a target="_blank" href="https://plus.google.com/share?url=<?php echo $getUrl; ?>" onclick="window.open('https://plus.google.com/share?url=<?php echo $getUrl; ?>','gplusshare','width=600,height=400,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150)+'');return false;"><i class="fa fa-google"></i></a>    
     </div>
