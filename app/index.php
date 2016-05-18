@@ -1,8 +1,25 @@
+<?php
+    function page_title($url) {
+        $fp = file_get_contents($url);
+        if (!$fp) 
+            return null;
+        $res = preg_match("/<title>(.*)<\/title>/siU", $fp, $title_matches);
+        if (!$res) 
+            return null; 
+        // Clean up title: remove EOL's and excessive whitespace.
+        $title = preg_replace('/\s+/', ' ', $title_matches[1]);
+        $title = trim($title);
+        return $title;
+    }
+    $getTitle = page_title($_SERVER['HTTP_REFERER']);
+    $getUrl = $_SERVER['HTTP_REFERER'];
+    $getImg = 'img/img-share.jpg';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>FlipBook</title>
+    <title>Baldosas Cordova</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/flipbook.css">
@@ -11,25 +28,24 @@
     
     <meta property="og:locale" content="es_ES" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Revista COSAS - Una revista internacional" />
+    <meta property="og:title" content="<?php echo $getTitle; ?>" />
     <meta property="og:description" content="Una revista internacional" />
-    <meta property="og:url" content="http://cosas.com" />
-    <meta property="og:site_name" content="Revista COSAS" />
+    <meta property="og:url" content="<?php echo $getUrl; ?>" />
+    <meta property="og:site_name" content="<?php echo $getTitle; ?>" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="Una revista internacional" />
-    <meta name="twitter:title" content="Revista COSAS - Una revista internacional" />
+    <meta name="twitter:title" content="<?php echo $getTitle; ?>" />
 </head>
 <body>
-    
     <div class="social-share">
-        <a href="javascript:fbShare('http://cosas.com/books/baldosascordova', 'Baldosas Cordova', 'Baldosas Cordova', 'http://cosas.com/books/baldosascordova', 520, 350)"><i class="fa fa-facebook"></i></a>
+        <a href="javascript:fbShare('<?php echo $getUrl; ?>','<?php echo $getTitle; ?>','<?php echo $getTitle; ?>', '<?php echo $getUrl;echo $getImg; ?>', 520, 350)"><i class="fa fa-facebook"></i></a>
                 
-        <a href="javascript:twShare('http://cosas.com/books/baldosascordova', 'Baldosas Cordova - vía: @revistacosas', 520, 350)"><i class="fa fa-twitter"></i></a>
+        <a href="javascript:twShare('<?php echo $getUrl; ?>', '<?php echo $getTitle; ?> - vía: @revistacosas', 520, 350)"><i class="fa fa-twitter"></i></a>
 
-        <a href="javascript:piShare('http://cosas.com/books/baldosascordova', 'Baldosas Cordova', 'http://cosas.com/books/baldosascordova.jpg', '', 520, 350)"><i class="fa fa-pinterest"></i></a>
+        <a href="javascript:piShare('<?php echo $getUrl; ?>', '<?php echo $getTitle; ?>', '<?php echo $getUrl;echo $getImg; ?>', '', 520, 350)"><i class="fa fa-pinterest"></i></a>
 
-        <a target="_blank" href="https://plus.google.com/share?url=http://cosas.com/books/baldosascordova" onclick="window.open('https://plus.google.com/share?url=http://cosas.com/books/baldosascordova','gplusshare','width=600,height=400,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150)+'');return false;"><i class="fa fa-google"></i></a>    
+        <a target="_blank" href="https://plus.google.com/share?url=<?php echo $getUrl; ?>" onclick="window.open('https://plus.google.com/share?url=<?php echo $getUrl; ?>','gplusshare','width=600,height=400,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-150)+'');return false;"><i class="fa fa-google"></i></a>    
     </div>
 
     <div id="flipbook">
