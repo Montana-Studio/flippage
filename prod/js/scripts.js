@@ -1,5 +1,5 @@
-$(document).ready(function(){            
-    function disableControls(page) {
+$(document).ready(function(){
+     function disableControls(page) {
         if (page===1){
             $('.previous-button').hide();
         }else{
@@ -12,29 +12,76 @@ $(document).ready(function(){
         }
     }
     var numberOfPages = 46;
-    $('#flipbook').turn({
-        width: 800,
-        height: 566,
-        autoCenter: true,
-        pages:numberOfPages,
-        elevation:50,
-        acceleration:true,
-        gradients:true,
-        when: {
-            turning: function(event, page, view) {
-                var book = $(this),
-                currentPage = book.turn('page'),
-                pages = book.turn('pages');
-                Hash.go('page/' + page).update();
-                disableControls(page);
-                $('.thumbnails .page-'+currentPage).parent().removeClass('current');
-                $('.thumbnails .page-'+page).parent().addClass('current');
-            },
-            turned: function(e, page) {
-                $('#page-number').val(page);
+    var module = {
+        ratio: 1.38,
+        init: function (id) {
+            var me = this;
+
+            // if older browser then don't run javascript
+            if (document.addEventListener) {
+                this.el = document.getElementById(id);
+                this.resize();
+                this.plugins();
+
+                // on window resize, update the plugin size
+                window.addEventListener('resize', function (e) {
+                    var size = me.resize();
+                    $(me.el).turn('size', size.width, size.height);
+                });
             }
+        },
+        resize: function () {
+            // reset the width and height to the css defaults
+            this.el.style.width = '';
+            this.el.style.height = '';
+
+            var width = this.el.clientWidth,
+                height = Math.round(width / this.ratio),
+                padded = Math.round(document.body.clientHeight * 0.9);
+
+            // if the height is too big for the window, constrain it
+            if (height > padded) {
+                height = padded;
+                width = Math.round(height * this.ratio);
+            }
+
+            // set the width and height matching the aspect ratio
+            this.el.style.width = width + 'px';
+            this.el.style.height = height + 'px';
+
+            return {
+                width: width,
+                height: height
+            };
+        },
+        plugins: function () {
+            // run the plugin
+            $(this.el).turn({
+                gradients: true,
+                acceleration: true,
+                pages:numberOfPages,
+                when: {
+                    turning: function(event, page, view) {
+                        var book = $(this),
+                        currentPage = book.turn('page'),
+                        pages = book.turn('pages');
+                        Hash.go('page/' + page).update();
+                        disableControls(page);
+                        $('.thumbnails .page-'+currentPage).parent().removeClass('current');
+                        $('.thumbnails .page-'+page).parent().addClass('current');
+                    },
+                    turned: function(e, page) {
+                        $('#page-number').val(page);
+                    }
+                }
+            });
+            // hide the body overflow
+            document.body.className = 'hide-overflow';
         }
-    });
+    };
+
+    module.init('flipbook');
+    
     $('#number-pages').html(numberOfPages);
     $('#page-number').keydown(function(e){
         if (e.keyCode===13) {
@@ -107,7 +154,14 @@ $(document).ready(function(){
             $('.thumbnails').removeClass('thumbnails-hover');
         });
     }
+    
+    $('.view-thumb').click(function(){
+        $('.view-thumb i').toggleClass('fa-fh fa-close');
+        $('.thumbnails').fadeToggle();
+    });
+
 });
+
 function fbShare(url, title, descr, image, winWidth, winHeight) {
     var winTop = (screen.height / 2) - (winHeight / 2);
     var winLeft = (screen.width / 2) - (winWidth / 2);
